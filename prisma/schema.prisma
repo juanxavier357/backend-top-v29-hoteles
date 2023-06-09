@@ -10,57 +10,84 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model users {
+  id               String   @id @default(cuid())
+  name             String
+  email            String   @unique
+  password         String
+  registrationDate DateTime @default(now())
+
+  reservations reservations[]
+}
+
 model hotels {
-  id            String       @id @default(cuid())
-  title         String
-  about         String
-  location      locations    @relation(fields: [locationsId], references: [id])
-  contactInfo   contactInfos @relation(fields: [contactInfosId], references: [id])
-  locationsId    String
-  contactInfosId String
-  image         images[]
-
-  // One-to-many relationship with Rooms
-  room rooms[]
-
-  // One-to-many relationship with Facilities
-  facility facilities[]
+  id          String         @id @default(cuid())
+  title       String
+  about       String
+  location    locations[]
+  image       images[]
+  room        rooms[]
+  facility    facilities[]
+  contactInfo contactInfos[]
+  reservation reservations[]
 }
 
 model locations {
   id      String   @id @default(cuid())
   city    String
-  lat_lng String?
+  latLng  String?
   address String
   hotel   hotels[]
 }
 
-model contactInfos {
-  id    String   @id @default(cuid())
-  name  String
-  email String
-  phone String
-  hotel hotels[]
-}
-
 model images {
-  id      String @id @default(cuid())
-  url     String
-  hotel   hotels @relation(fields: [hotelsId], references: [id])
+  id       String @id @default(cuid())
+  url      String
+  hotel    hotels @relation(fields: [hotelsId], references: [id])
   hotelsId String
 }
 
 model rooms {
-  id          String @id @default(cuid())
-  number_beds Int
-  price_night Float
-  hotel       hotels @relation(fields: [hotelsId], references: [id])
-  hotelsId     String
+  id            String      @id @default(cuid())
+  title         String
+  description   String
+  pricePerNight Float
+  hotel         hotels      @relation(fields: [hotelsId], references: [id])
+  hotelsId      String
+  amenities     amenities[]
 }
 
 model facilities {
+  id       String @id @default(cuid())
+  name     String
+  hotel    hotels @relation(fields: [hotelsId], references: [id])
+  hotelsId String
+}
+
+model amenities {
   id      String @id @default(cuid())
   name    String
-  hotel   hotels @relation(fields: [hotelsId], references: [id])
+  room    rooms  @relation(fields: [roomsId], references: [id])
+  roomsId String
+}
+
+model contactInfos {
+  id       String @id @default(cuid())
+  name     String
+  email    String
+  phone    String
+  hotel    hotels @relation(fields: [hotelsId], references: [id])
+  hotelsId String
+}
+
+model reservations {
+  id            String   @id @default(cuid())
+  startDate     DateTime
+  endDate       DateTime
+  paymentStatus Boolean
+
+  user     users  @relation(fields: [usersId], references: [id])
+  hotel    hotels @relation(fields: [hotelsId], references: [id])
+  usersId  String
   hotelsId String
 }
