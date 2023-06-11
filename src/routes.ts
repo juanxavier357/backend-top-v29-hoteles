@@ -13,6 +13,7 @@ function routes(app: Application) {
     app.use('/api/hotel', hotelRouter)
     app.use('/api/image', imageRouter)
     app.use('/api/location', locationRouter)
+    app.use('/api/reservation', roomRouter)
     app.use('/api/room', roomRouter)
 }
 
