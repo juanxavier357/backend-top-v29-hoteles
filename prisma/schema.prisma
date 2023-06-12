@@ -22,8 +22,11 @@ model users {
 
 model hotels {
   id          String         @id @default(cuid())
-  title       String
+  hotel       String
   about       String
+  checkIn     DateTime
+  checkOut    DateTime
+  guests      Int
   location    locations[]
   image       images[]
   room        rooms[]
