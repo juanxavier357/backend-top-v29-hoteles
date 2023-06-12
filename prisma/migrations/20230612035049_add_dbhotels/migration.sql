@@ -12,8 +12,11 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "hotels" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
+    "hotel" TEXT NOT NULL,
     "about" TEXT NOT NULL,
+    "checkIn" TIMESTAMP(3) NOT NULL,
+    "checkOut" TIMESTAMP(3) NOT NULL,
+    "guests" INTEGER NOT NULL,
 
     CONSTRAINT "hotels_pkey" PRIMARY KEY ("id")
 );
