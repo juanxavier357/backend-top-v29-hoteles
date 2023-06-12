@@ -31,7 +31,7 @@ export async function getUserHandler(req: Request, res: Response) {
 export async function createUserHandler(req: Request, res: Response) {
   const data = req.body
 
-  if (!data.name || !data.email) {
+  if (!data.name || !data.email || !data.password) {
     return res.status(400).json({
       error: "name or email or password is missing",
     });
