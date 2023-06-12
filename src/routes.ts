@@ -1,11 +1,11 @@
 import { Application, Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import contactInfoRouter from './api/contactInfo'
-import facilityRouter from './api/facility'
-import hotelRouter from './api/hotel'
-import imageRouter from './api/image'
-import locationRouter from './api/location'
-import roomRouter from './api/room'
+import contactInfoRouter from './api/contactInfo';
+import facilityRouter from './api/facility';
+import hotelRouter from './api/hotel';
+import imageRouter from './api/image';
+import locationRouter from './api/location';
+import roomRouter from './api/room';
 
 function routes(app: Application, prisma: PrismaClient) {
   app.get('/api/hotels', async (req: Request, res: Response) => {
@@ -24,7 +24,7 @@ function routes(app: Application, prisma: PrismaClient) {
             lte: checkOut as string,
           },
           guests: {
-            gte: guests as string,
+            gte: Number(guests) as number,
           },
         },
       });
@@ -46,4 +46,3 @@ function routes(app: Application, prisma: PrismaClient) {
 }
 
 export default routes;
-
