@@ -6,7 +6,8 @@ import hotelRouter from './api/hotel';
 import imageRouter from './api/image';
 import locationRouter from './api/location';
 import roomRouter from './api/room';
-
+import userRouter from "./api/user"
+import amenityRouter from "./api/amenity"
 function routes(app: Application, prisma: PrismaClient) {
   app.get('/api/hotels', async (req: Request, res: Response) => {
     const { hotel, checkIn, checkOut, guests } = req.query;
@@ -43,6 +44,8 @@ function routes(app: Application, prisma: PrismaClient) {
   app.use('/api/image', imageRouter);
   app.use('/api/location', locationRouter);
   app.use('/api/room', roomRouter);
+  app.use('/api/user', userRouter);
+  app.use('/api/amenities', amenityRouter);
 }
 
 export default routes;
