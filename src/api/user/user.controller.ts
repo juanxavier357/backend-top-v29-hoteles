@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
-
 import {
   getAllUsers,
   getUserById,
+  getUserByEmail,
   createUser,
   updateUser,
   deleteUser,
 } from './user.service'
+import { comparePassword } from "../../auth/utils/bcrypt";
 
 export async function getAllUsersHandler(req: Request, res: Response) {
   const users = await getAllUsers()
@@ -29,18 +30,16 @@ export async function getUserHandler(req: Request, res: Response) {
 }
 
 export async function createUserHandler(req: Request, res: Response) {
-  const data = req.body
+  const data = req.body;
 
-  if (!data.name || !data.email || !data.password) {
-    return res.status(400).json({
-      error: "name or email or password is missing",
-    });
+  try {
+    const user = await createUser(data);
+    return res.status(201).json(user);
+  } catch (error: any) {
+    console.log(error);
   }
-
-  const user = await createUser(data)
-
-  return res.status(201).json(user)
 }
+
 
 export async function updateUserHandler(req: Request, res: Response) {
   const { id } = req.params;
@@ -68,4 +67,29 @@ export async function deleteUserHandler(req: Request, res: Response) {
   await deleteUser(id)
 
   return res.json({ message: 'user deleted' })
+}
+export async function loginHandler(req: Request, res: Response) {
+
+  const { email, password } = req.body;
+
+  try {
+    const user = await getUserByEmail(email)
+    if (!user) {
+      return res.status(404).json({ message: "user not found" })
+    }
+
+    //compare
+    const isMatch = await comparePassword(password, user.password)
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorret email or password" })
+    }
+
+    //jwt
+    return res.json(user)
+
+  } catch (error) {
+
+  }
+
 }

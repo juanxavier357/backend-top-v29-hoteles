@@ -18,15 +18,6 @@ function routes(app: Application, prisma: PrismaClient) {
           hotel: {
             contains: hotel as string,
           },
-          checkIn: {
-            gte: checkIn as string,
-          },
-          checkOut: {
-            lte: checkOut as string,
-          },
-          guests: {
-            gte: Number(guests) as number,
-          },
         },
       });
 

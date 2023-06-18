@@ -1,4 +1,4 @@
-import { users as usersModel, Prisma } from '@prisma/client'
+import { users as usersModel, roles as roleModel, Prisma } from '@prisma/client'
 export type users = usersModel
 
 export type usersType =
@@ -7,3 +7,9 @@ export type usersType =
   | Prisma.usersCreateInput
   | Prisma.usersUpdateInput
   | Prisma.usersDeleteArgs
+
+export type userWithRoles = users & {
+  roles: {
+    role: roleModel;
+  }[];
+};
