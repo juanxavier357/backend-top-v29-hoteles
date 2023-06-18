@@ -11,19 +11,25 @@ datasource db {
 }
 
 model users {
-  id               String   @id @default(cuid())
-  name             String
-  email            String   @unique
-  password         String
-  registrationDate DateTime @default(now())
-
+  id                   String    @id @default(cuid())
+  firstName            String
+  lastName             String
+  email                String    @unique
+  isActive             Boolean   @default(false)
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
   reservations reservations[]
+  payments payments[]
 }
 
 model hotels {
   id          String         @id @default(cuid())
-  title       String
+  hotel       String
   about       String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   location    locations[]
   image       images[]
   room        rooms[]
@@ -31,20 +37,23 @@ model hotels {
   contactInfo contactInfos[]
   reservation reservations[]
 }
-
 model locations {
-  id      String   @id @default(cuid())
-  city    String
-  latLng  String?
-  address String
-  hotel   hotels[]
+  id        String   @id @default(cuid())
+  city      String
+  latLng    String?
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hotel     hotels[]
 }
 
 model images {
-  id       String @id @default(cuid())
-  url      String
-  hotel    hotels @relation(fields: [hotelsId], references: [id])
-  hotelsId String
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hotel     hotels   @relation(fields: [hotelsId], references: [id])
+  hotelsId  String
 }
 
 model rooms {
@@ -52,32 +61,40 @@ model rooms {
   title         String
   description   String
   pricePerNight Float
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   hotel         hotels      @relation(fields: [hotelsId], references: [id])
   hotelsId      String
   amenities     amenities[]
 }
 
 model facilities {
-  id       String @id @default(cuid())
-  name     String
-  hotel    hotels @relation(fields: [hotelsId], references: [id])
-  hotelsId String
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hotel     hotels   @relation(fields: [hotelsId], references: [id])
+  hotelsId  String
 }
 
 model amenities {
-  id      String @id @default(cuid())
-  name    String
-  room    rooms  @relation(fields: [roomsId], references: [id])
-  roomsId String
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  room      rooms    @relation(fields: [roomsId], references: [id])
+  roomsId   String
 }
 
 model contactInfos {
-  id       String @id @default(cuid())
-  name     String
-  email    String
-  phone    String
-  hotel    hotels @relation(fields: [hotelsId], references: [id])
-  hotelsId String
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hotel     hotels   @relation(fields: [hotelsId], references: [id])
+  hotelsId  String
 }
 
 model reservations {
@@ -85,9 +102,22 @@ model reservations {
   startDate     DateTime
   endDate       DateTime
   paymentStatus Boolean
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          users    @relation(fields: [usersId], references: [id])
+  hotel         hotels   @relation(fields: [hotelsId], references: [id])
+  usersId       String
+  hotelsId      String
+}
 
-  user     users  @relation(fields: [usersId], references: [id])
-  hotel    hotels @relation(fields: [hotelsId], references: [id])
-  usersId  String
-  hotelsId String
+model payments {
+  id          String   @id @default(cuid())
+  description String?
+  currency    String
+  amount      Int
+  refId       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user   users   @relation(fields: [usersId], references: [id])
+  usersId String
 }

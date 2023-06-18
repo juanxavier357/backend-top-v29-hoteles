@@ -1,17 +1,20 @@
-import express, { Express, Request, Response, NextFunction } from "express"
-import configExpress from "./config/express"
-import routes from "./routes"
+import express, { Express } from 'express';
+import configExpress from './config/express';
+import routes from './routes';
+import { PrismaClient } from '@prisma/client';
 
-const app: Express = express()
+const app: Express = express();
+const prisma = new PrismaClient();
 
-const PORT = process.env.PORT ?? 8080
+const PORT = process.env.PORT || 8080;
 
 // Setup Express
-configExpress(app)
+configExpress(app);
 
 // Routes
-routes(app)
+routes(app, prisma);
 
 app.listen(PORT, () => {
-    console.log(`Server is running in http://localhost:${PORT}`)
-})
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
+
