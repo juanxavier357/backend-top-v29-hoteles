@@ -64,7 +64,7 @@ export async function deleteUserHandler(req: Request, res: Response) {
     })
   }
 
-  await deleteUser(id)
+  //await deleteUser(id)
 
-  return res.json({ message: 'user deleted' })
+  return res.json(user)
 }

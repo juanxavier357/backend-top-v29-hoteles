@@ -7,11 +7,11 @@ import {
   updateUserHandler,
   deleteUserHandler,
 } from './user.controller'
-
+import { isAuthenticated } from '../../auth/auth.service'
 const router = Router()
 
 // /api/users --> GET
-router.get('/', getAllUsersHandler)
+router.get('/', isAuthenticated, getAllUsersHandler)
 
 // /api/users/:id --> GET
 router.get('/:id', getUserHandler)
@@ -23,9 +23,7 @@ router.post('/', createUserHandler)
 router.patch('/:id', updateUserHandler)
 
 // /api/users/:id --> DELETE
-router.delete('/:id', deleteUserHandler)
-
-
+router.delete('/:id', isAuthenticated, deleteUserHandler)
 
 export default router
 
