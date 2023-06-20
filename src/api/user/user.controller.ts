@@ -68,4 +68,3 @@ export async function deleteUserHandler(req: Request, res: Response) {
 
   return res.json(user)
 }
-

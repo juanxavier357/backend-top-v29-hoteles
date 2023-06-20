@@ -25,7 +25,5 @@ router.patch('/:id', updateUserHandler)
 // /api/users/:id --> DELETE
 router.delete('/:id', isAuthenticated, deleteUserHandler)
 
-
-
 export default router
 
