@@ -38,7 +38,6 @@ function routes(app: Application, prisma: PrismaClient) {
   app.use('/api/room', roomRouter);
   app.use('/api/user', userRouter);
   app.use('/api/amenities', amenityRouter);
-
   //Auth
   app.use("/auth/local", authLocalRouter)
 }

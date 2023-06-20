@@ -5,6 +5,10 @@ const router = Router()
 
 router.post("/login", loginHandler)
 
-//
-//
-export default router
+router.post("/login", loginHandler)
+// Change
+// reset
+//logout
+//activate account
+
+export default router;
