@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-
+import jwt from "jsonwebtoken"
 import { getUserByEmail } from "../../api/user/user.service";
-import jwt from "jsonwebtoken";
 import { comparePassword } from "../utils/bcrypt";
 export async function loginHandler(req: Request, res: Response) {
 
@@ -24,16 +23,20 @@ export async function loginHandler(req: Request, res: Response) {
     const payload = {
       id: user.id,
       email: user.email
-    }
-    const SECRET = "c0d1g0_s3cr3t0"
-
+    };
+    const SECRET = "s3cr3t_c0d3_123";
     const token = jwt.sign(payload, SECRET)
 
+    const profile = {
+      fullName: `${user.firstName} ${user.lastName}`,
+      avatar: user.avatar,
+      roles: user.roles.map(({ role }) => ({
+        id: role.id,
+        name: role.name
+      }))
+    }
 
-    return res.json({ token, profile: user })
+    return res.json({ token, profile })
 
-  } catch (error) {
-
-  }
-
+  } catch (error) { }
 }
