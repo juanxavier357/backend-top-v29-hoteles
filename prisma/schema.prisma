@@ -37,10 +37,10 @@ model roles {
 
 model userRoles {
   id      String @id @default(cuid())
-  user    users  @relation(fields: [usersId], references: [id])
-  usersId String
-  role    roles  @relation(fields: [rolesId], references: [id])
-  rolesId String
+  user    users  @relation(fields: [userId], references: [id])
+  userId String
+  role    roles  @relation(fields: [roleId], references: [id])
+  roleId String
 }
 
 model hotels {
@@ -72,8 +72,8 @@ model images {
   url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hotel     hotels   @relation(fields: [hotelsId], references: [id])
-  hotelsId  String
+  hotel     hotels   @relation(fields: [hotelId], references: [id])
+  hotelId  String
 }
 
 model rooms {
@@ -83,8 +83,8 @@ model rooms {
   pricePerNight Float
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  hotel         hotels      @relation(fields: [hotelsId], references: [id])
-  hotelsId      String
+  hotel         hotels      @relation(fields: [hotelId], references: [id])
+  hotelId      String
   amenities     amenities[]
 }
 
@@ -93,8 +93,8 @@ model facilities {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hotel     hotels   @relation(fields: [hotelsId], references: [id])
-  hotelsId  String
+  hotel     hotels   @relation(fields: [hotelId], references: [id])
+  hotelId  String
 }
 
 model amenities {
@@ -102,8 +102,8 @@ model amenities {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  room      rooms    @relation(fields: [roomsId], references: [id])
-  roomsId   String
+  room      rooms    @relation(fields: [roomId], references: [id])
+  roomId   String
 }
 
 model contactInfos {
@@ -113,8 +113,8 @@ model contactInfos {
   phone     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hotel     hotels   @relation(fields: [hotelsId], references: [id])
-  hotelsId  String
+  hotel     hotels   @relation(fields: [hotelId], references: [id])
+  hotelId  String
 }
 
 model reservations {
@@ -124,10 +124,10 @@ model reservations {
   paymentStatus Boolean
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  user          users    @relation(fields: [usersId], references: [id])
-  hotel         hotels   @relation(fields: [hotelsId], references: [id])
-  usersId       String
-  hotelsId      String
+  user          users    @relation(fields: [userId], references: [id])
+  hotel         hotels   @relation(fields: [hotelId], references: [id])
+  userId       String
+  hotelId      String
 }
 
 model payments {
@@ -138,6 +138,6 @@ model payments {
   refId       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  user        users    @relation(fields: [usersId], references: [id])
-  usersId     String
+  user        users    @relation(fields: [userId], references: [id])
+  userId     String
 }
