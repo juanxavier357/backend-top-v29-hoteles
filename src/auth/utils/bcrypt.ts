@@ -8,3 +8,12 @@ export async function hashPassword(password: string, factor?: number) {
 export async function comparePassword(password: string, hashedPassword: string) {
   return await bcrypt.compare(password, hashedPassword);
 }
+
+export function hashPasswordSync(password: string, factor?: number) {
+  // 1. salt
+  const salt = bcrypt.genSaltSync(factor)
+
+  // 2. hash
+  return bcrypt.hashSync(password, salt)
+}
+

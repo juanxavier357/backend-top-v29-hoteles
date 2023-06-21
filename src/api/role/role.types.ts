@@ -1,4 +1,4 @@
-import { roles as rolesModel, roles as roleModel, Prisma } from '@prisma/client'
+import { roles as rolesModel, Prisma } from '@prisma/client'
 export type roles = rolesModel
 
 export type roleType =

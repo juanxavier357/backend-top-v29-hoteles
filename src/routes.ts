@@ -1,5 +1,4 @@
-import { Application, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { Application } from 'express';
 import contactInfoRouter from './api/contactInfo';
 import facilityRouter from './api/facility';
 import hotelRouter from './api/hotel';
@@ -9,25 +8,7 @@ import roomRouter from './api/room';
 import userRouter from "./api/user"
 import amenityRouter from "./api/amenity"
 import authLocalRouter from "./auth/local"
-function routes(app: Application, prisma: PrismaClient) {
-  app.get('/api/hotels', async (req: Request, res: Response) => {
-    const { hotel, checkIn, checkOut, guests } = req.query;
-
-    try {
-      const hotels = await prisma.hotels.findMany({
-        where: {
-          hotel: {
-            contains: hotel as string,
-          },
-        },
-      });
-
-      res.json(hotels);
-    } catch (error) {
-      console.error('Error fetching hotels:', error);
-      res.status(500).json({ error: 'Error fetching hotels' });
-    }
-  });
+function routes(app: Application) {
 
   // Aquí puedes agregar las demás rutas si las necesitas
   app.use('/api/contactInfo', contactInfoRouter);
