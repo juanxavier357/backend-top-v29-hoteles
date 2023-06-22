@@ -7,11 +7,11 @@ import {
   updateUserHandler,
   deleteUserHandler,
 } from './user.controller'
-import { isAuthenticated } from '../../auth/auth.service'
+import { hasRole, isAuthenticated } from '../../auth/auth.controller'
 const router = Router()
 
 // /api/users --> GET
-router.get('/', isAuthenticated, getAllUsersHandler)
+router.get('/', hasRole(["USER"]), getAllUsersHandler)
 
 // /api/users/:id --> GET
 router.get('/:id', getUserHandler)
