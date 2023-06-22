@@ -1,7 +1,6 @@
 import express, { Express } from 'express';
 import configExpress from './config/express';
 import routes from './routes';
-import { PrismaClient } from '@prisma/client';
 
 const app: Express = express();
 
