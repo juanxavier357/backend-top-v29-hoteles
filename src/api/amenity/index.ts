@@ -10,19 +10,19 @@ import {
 
 const router = Router()
 
-// /api/amenities --> GET
+// /api/amenitys --> GET
 router.get('/', getAllAmenitiesHandler)
 
-// /api/amenities/:id --> GET
+// /api/amenitys/:id --> GET
 router.get('/:id', getAmenityHandler)
 
-// /api/amenities --> POST
+// /api/amenitys --> POST
 router.post('/', createAmenityHandler)
 
-// /api/amenities/:id --> PATCH
+// /api/amenitys/:id --> PATCH
 router.patch('/:id', updateAmenityHandler)
 
-// /api/amenities/:id --> DELETE
+// /api/amenitys/:id --> DELETE
 router.delete('/:id', deleteAmenityHandler)
 
 export default router

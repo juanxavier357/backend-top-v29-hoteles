@@ -10,19 +10,19 @@ import {
 
 const router = Router()
 
-// /api/contactsInfo --> GET
+// /api/contactInfos --> GET
 router.get('/', getAllContactInfoHandler)
 
-// /api/contactsInfo/:id --> GET
+// /api/contactInfos/:id --> GET
 router.get('/:id', getContactInfoHandler)
 
-// /api/contactsInfo --> POST
+// /api/contactInfos --> POST
 router.post('/', createContactInfoHandler)
 
-// /api/contactsInfo/:id --> PATCH
+// /api/contactInfos/:id --> PATCH
 router.patch('/:id', updateContactInfoHandler)
 
-// /api/contactsInfo/:id --> DELETE
+// /api/contactInfos/:id --> DELETE
 router.delete('/:id', deleteContactInfoHandler)
 
 export default router

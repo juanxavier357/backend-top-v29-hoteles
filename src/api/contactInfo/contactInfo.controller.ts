@@ -9,9 +9,9 @@ import {
 } from './contactInfo.service'
 
 export async function getAllContactInfoHandler(req: Request, res: Response) {
-    const contactsInfo = await getAllContactInfo()
+    const contactInfos = await getAllContactInfo()
 
-    return res.json(contactsInfo)
+    return res.json(contactInfos)
 }
 
 export async function getContactInfoHandler(req: Request, res: Response) {
