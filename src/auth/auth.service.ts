@@ -1,16 +1,32 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-export async function isAuthenticated(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers?.authorization?.split(" ")[1]
+import jwt from 'jsonwebtoken';
 
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized" })
-  }
-  const SECRET = "s3cr3t_c0d3_123"
-  const decoded = jwt.verify(token, SECRET)
+import { PayloadType } from './auth.types';
 
-  if (!decoded) {
-    return res.status(401).json({ message: "Unauthorized" })
+const SECRET = process.env.JWT_SECRET as string;
+
+
+/**
+ * Validates the token
+ * @param token JWT token
+ * @returns PayloadType | null
+ */
+export function verifyToken(token: string) {
+  try {
+    const decoded = jwt.verify(token, SECRET);
+
+    return decoded;
+  } catch (error) {
+    return null;
   }
-  return next()
+}
+
+/**
+ * Generates a token
+ * @param payload Payload to be signed
+ * @returns string
+ */
+export function signToken(payload: PayloadType) {
+  const token = jwt.sign(payload, SECRET);
+
+  return token;
 }

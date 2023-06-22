@@ -74,8 +74,6 @@ model images {
   updatedAt DateTime @updatedAt
   hotel     hotels   @relation(fields: [hotelId], references: [id])
   hotelId   String
-  hotelId  String
-
 }
 
 model rooms {
@@ -88,7 +86,6 @@ model rooms {
   hotel         hotels      @relation(fields: [hotelId], references: [id])
   hotelId       String
   amenity       amenities[]
-
 }
 
 model facilities {

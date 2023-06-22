@@ -6,7 +6,6 @@ import { hashPassword } from "../../auth/utils/bcrypt"
 
 const prisma = new PrismaClient()
 
-// Query with prisma client
 
 export async function getAllUsers() {
   const users = await prisma.users.findMany()
