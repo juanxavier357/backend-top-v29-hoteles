@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+require('dotenv').config()
 
 function configExpress(app: Application) {
   app.use(cors());
