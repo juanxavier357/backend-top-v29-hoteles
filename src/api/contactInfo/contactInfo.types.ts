@@ -1,10 +1,10 @@
-import { contactInfos as contactInfosModel, Prisma } from '@prisma/client'
+import { contactsInfo as contactsInfoModel, Prisma } from '@prisma/client'
 
-export type contactInfos = contactInfosModel
+export type contactsInfo = contactsInfoModel
 
-export type contactInfosType =
-    | Prisma.contactInfosWhereInput
-    | Prisma.contactInfosWhereUniqueInput
-    | Prisma.contactInfosCreateInput
-    | Prisma.contactInfosUpdateInput
-    | Prisma.contactInfosDeleteArgs
+export type contactsInfoType =
+    | Prisma.contactsInfoWhereInput
+    | Prisma.contactsInfoWhereUniqueInput
+    | Prisma.contactsInfoCreateInput
+    | Prisma.contactsInfoUpdateInput
+    | Prisma.contactsInfoDeleteArgs

@@ -1,53 +1,53 @@
 import { PrismaClient } from "@prisma/client";
 
-import { contactInfos } from './contactInfo.types'
+import { contactsInfo } from './contactInfo.types'
 
 const prisma = new PrismaClient()
 
 // Query with prisma client
 
 export async function getAllContactInfo() {
-    const contactInfos = await prisma.contactInfos.findMany()
-    return contactInfos
+  const contactsInfo = await prisma.contactsInfo.findMany()
+  return contactsInfo
 }
 
 export async function getContactInfoById(id: string) {
-    const contactInfo = await prisma.contactInfos.findUnique({
-        where: {
-            id,
-        },
-    })
+  const contactInfo = await prisma.contactsInfo.findUnique({
+    where: {
+      id,
+    },
+  })
 
-    return contactInfo
+  return contactInfo
 }
 
-export async function createContactInfo(data: contactInfos) {
-    const contactInfo = await prisma.contactInfos.create({
-        data,
-    })
+export async function createContactInfo(data: contactsInfo) {
+  const contactInfo = await prisma.contactsInfo.create({
+    data,
+  })
 
-    return contactInfo
+  return contactInfo
 }
 
-export async function updateContactInfo(id: string, data: contactInfos) {
-    const contactInfo = await prisma.contactInfos.update({
-        where: {
-            id,
-        },
-        data: {
-            ...data
-        }
-    })
+export async function updateContactInfo(id: string, data: contactsInfo) {
+  const contactInfo = await prisma.contactsInfo.update({
+    where: {
+      id,
+    },
+    data: {
+      ...data
+    }
+  })
 
-    return contactInfo
+  return contactInfo
 }
 
 export async function deleteContactInfo(id: string) {
-    const contactInfo = await prisma.contactInfos.delete({
-        where: {
-            id,
-        },
-    })
+  const contactInfo = await prisma.contactsInfo.delete({
+    where: {
+      id,
+    },
+  })
 
-    return contactInfo
+  return contactInfo
 }
