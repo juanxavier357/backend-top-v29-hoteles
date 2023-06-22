@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken"
 import { getUserByEmail } from "../../api/user/user.service";
 import { comparePassword } from "../utils/bcrypt";
+import { signToken } from '../auth.service'
 export async function loginHandler(req: Request, res: Response) {
 
   const { email, password } = req.body;
@@ -16,7 +16,7 @@ export async function loginHandler(req: Request, res: Response) {
     const isMatch = await comparePassword(password, user.password)
 
     if (!isMatch) {
-      return res.status(400).json({ message: "Incorret email or password" })
+      return res.status(400).json({ message: "Incorrect email or password" })
     }
 
     //jwt
@@ -24,8 +24,7 @@ export async function loginHandler(req: Request, res: Response) {
       id: user.id,
       email: user.email
     };
-    const SECRET = "s3cr3t_c0d3_123";
-    const token = jwt.sign(payload, SECRET)
+    const token = signToken(payload)
 
     const profile = {
       fullName: `${user.firstName} ${user.lastName}`,
