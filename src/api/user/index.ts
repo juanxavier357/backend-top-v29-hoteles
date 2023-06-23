@@ -11,7 +11,7 @@ import { hasRole, isAuthenticated } from '../../auth/auth.controller'
 const router = Router()
 
 // /api/users --> GET
-router.get('/', hasRole(["USER"]), getAllUsersHandler)
+router.get('/', getAllUsersHandler)
 
 // /api/users/:id --> GET
 router.get('/:id', getUserHandler)
@@ -23,7 +23,7 @@ router.post('/', createUserHandler)
 router.patch('/:id', updateUserHandler)
 
 // /api/users/:id --> DELETE
-router.delete('/:id', deleteUserHandler)
+router.delete('/:id', hasRole(["ADMIN"]), deleteUserHandler)
 
 export default router
 
