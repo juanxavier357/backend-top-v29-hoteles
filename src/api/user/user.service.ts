@@ -75,6 +75,11 @@ export async function updateUser(id: string, data: users) {
 }
 
 export async function deleteUser(id: string) {
+  await prisma.userRoles.deleteMany({
+    where: {
+      userId: id
+    }
+  });
   const user = await prisma.users.delete({
     where: {
       id,
