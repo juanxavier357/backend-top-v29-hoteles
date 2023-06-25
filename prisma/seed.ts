@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { roleSeeder } from '../src/api/role/role.seeder'
 import { userSeeder, userByRoleSeeder } from '../src/api/user/user.seeder'
 import { hotelSeeder } from '../src/api/hotel/hotel.seeder'
+import { locationSeeder } from '../src/api/location/location.seeder'
 
 const prisma = new PrismaClient()
 
@@ -27,7 +28,12 @@ async function main() {
     skipDuplicates: true,
   })
 
-  console.log({ createRoles, createUsers, createUserByRole, createHotels })
+  const createLocations = await prisma.locations.createMany({
+    data: locationSeeder,
+    skipDuplicates: true,
+  })
+
+  console.log({ createRoles, createUsers, createUserByRole, createHotels, createLocations })
 }
 
 main()
