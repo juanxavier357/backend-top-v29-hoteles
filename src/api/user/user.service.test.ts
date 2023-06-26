@@ -1,30 +1,30 @@
 import supertest from "supertest";
-import { getAllRoles, getRoleById } from "./role.service"
+import { getAllUsers, getUserById } from "./user.service"
 import app from "../../config/app";
 
 const request = supertest(app);
 
-describe('role Service', () => {
-  describe('getAllRol', () => {
+describe('User Service', () => {
+  describe('getAllUsers', () => {
     test('should return an instance of array', async () => {
       // Arrange
       const expected = Array;
 
       // Act
-      const result = await getAllRoles();
+      const result = await getAllUsers();
 
       // Assert
       expect((result)).toBeInstanceOf(expected);
     });
 
 
-    test('should return null if task is not found', async () => {
+    test('should return null if user is not found', async () => {
       // Arrange
       const roleId = "999";
       const expected = null;
 
       // Act
-      const result = await getRoleById(roleId);
+      const result = await getUserById(roleId);
 
       // Assert
       expect(result).toBeNull();
