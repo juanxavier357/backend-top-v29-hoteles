@@ -1,11 +1,5 @@
 export const contactsInfoSeeder = [
-  {
-    id: 'Colombia_Hotel_1',
-    name: 'Charleston Santa Teresa',
-    email: 'info@hotelescharleston.com',
-    phone: '+57 605 6543201',
-    hotelId: 'Colombia_Hotel_1',
-  },
+  expect(response.body).toHaveProperty("email");,
   {
     id: 'Colombia_Hotel_2',
     name: 'Sofitel Legend Santa Clara',
