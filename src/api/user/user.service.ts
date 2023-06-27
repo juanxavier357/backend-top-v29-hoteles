@@ -22,7 +22,6 @@ export async function getUserById(id: string) {
   return user
 }
 
-
 export async function getUserByEmail(email: string) {
   const foundUser = await prisma.users.findUnique({
     where: { email },
@@ -43,11 +42,11 @@ export async function getUserByEmail(email: string) {
   return foundUser || null;
 }
 
-
 export async function createUser(input: users) {
   if (!input.password) {
     throw new Error("Password is required")
   }
+  
   const hashedPassword = await hashPassword(input.password)
   const data = {
     ...input,
@@ -80,6 +79,7 @@ export async function deleteUser(id: string) {
       userId: id
     }
   });
+
   const user = await prisma.users.delete({
     where: {
       id,
@@ -88,3 +88,4 @@ export async function deleteUser(id: string) {
 
   return user
 }
+

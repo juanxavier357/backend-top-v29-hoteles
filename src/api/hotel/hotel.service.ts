@@ -7,7 +7,11 @@ const prisma = new PrismaClient()
 // Query with prisma client
 
 export async function getAllHotel() {
-    const hotels = await prisma.hotels.findMany()
+    const hotels = await prisma.hotels.findMany({
+        include: {
+          
+        }
+    })
     return hotels
 }
 

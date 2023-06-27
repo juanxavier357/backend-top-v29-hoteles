@@ -28,7 +28,8 @@ describe('location controller', () => {
     test('should create a new location and return code 201', async () => {
       const newlocation = {
         address: 'Calle 10 No. 9 - 78',
-        city: "Bogota"
+        city: "Bogota",
+        hotelId: 'Colombia_Hotel_2',
       };
 
       const response = await request.post('/api/location').send(newlocation);
