@@ -35,6 +35,7 @@ describe('location controller', () => {
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('address');
+      expect(response.body).toHaveProperty('city');
     });
   });
 

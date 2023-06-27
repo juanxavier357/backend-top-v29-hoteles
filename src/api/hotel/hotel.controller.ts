@@ -31,7 +31,7 @@ export async function getHotelHandler(req: Request, res: Response) {
 export async function createHotelHandler(req: Request, res: Response) {
   const data = req.body
 
-  if (!data.name || !data.about) {
+  if (!data.hotel || !data.about) {
     return res.status(400).json({
       error: "Name or about is missing",
     });
