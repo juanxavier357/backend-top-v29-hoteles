@@ -6,6 +6,7 @@ import {
   createUserHandler,
   updateUserHandler,
   deleteUserHandler,
+  loginHandler,
 } from './user.controller'
 import { hasRole, isAuthenticated } from '../../auth/auth.controller'
 const router = Router()
@@ -24,6 +25,9 @@ router.patch('/:id', updateUserHandler)
 
 // /api/users/:id --> DELETE
 router.delete('/:id', hasRole(["ADMIN"]), deleteUserHandler)
+
+// api/users/login --> LOGIN
+router.post('login', loginHandler)
 
 export default router
 

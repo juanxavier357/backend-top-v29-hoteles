@@ -1,9 +1,16 @@
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "birthday" TIMESTAMP(3),
+    "gender" TEXT,
+    "address" TEXT,
+    "city" TEXT,
+    "state" TEXT,
+    "zip" TEXT,
     "password" TEXT NOT NULL,
     "isActive" BOOLEAN NOT NULL DEFAULT false,
     "avatar" TEXT,
@@ -53,6 +60,7 @@ CREATE TABLE "locations" (
     "address" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "hotelId" TEXT NOT NULL,
 
     CONSTRAINT "locations_pkey" PRIMARY KEY ("id")
 );
@@ -73,7 +81,8 @@ CREATE TABLE "rooms" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "pricePerNight" DOUBLE PRECISION NOT NULL,
+    "pastPrice" DOUBLE PRECISION NOT NULL,
+    "actualPrice" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "hotelId" TEXT NOT NULL,
@@ -133,10 +142,11 @@ CREATE TABLE "reservations" (
 -- CreateTable
 CREATE TABLE "payments" (
     "id" TEXT NOT NULL,
-    "description" TEXT,
+    "description" TEXT NOT NULL,
     "currency" TEXT NOT NULL,
     "amount" INTEGER NOT NULL,
-    "refId" TEXT NOT NULL,
+    "code" TEXT,
+    "discount" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
@@ -144,11 +154,8 @@ CREATE TABLE "payments" (
     CONSTRAINT "payments_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_hotelsTolocations" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL
-);
+-- CreateIndex
+CREATE UNIQUE INDEX "users_phone_key" ON "users"("phone");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
@@ -156,17 +163,14 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "roles_name_key" ON "roles"("name");
 
--- CreateIndex
-CREATE UNIQUE INDEX "_hotelsTolocations_AB_unique" ON "_hotelsTolocations"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_hotelsTolocations_B_index" ON "_hotelsTolocations"("B");
-
 -- AddForeignKey
 ALTER TABLE "userRoles" ADD CONSTRAINT "userRoles_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "userRoles" ADD CONSTRAINT "userRoles_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "roles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "locations" ADD CONSTRAINT "locations_hotelId_fkey" FOREIGN KEY ("hotelId") REFERENCES "hotels"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "images" ADD CONSTRAINT "images_hotelId_fkey" FOREIGN KEY ("hotelId") REFERENCES "hotels"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -191,9 +195,3 @@ ALTER TABLE "reservations" ADD CONSTRAINT "reservations_hotelId_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "payments" ADD CONSTRAINT "payments_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_hotelsTolocations" ADD CONSTRAINT "_hotelsTolocations_A_fkey" FOREIGN KEY ("A") REFERENCES "hotels"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_hotelsTolocations" ADD CONSTRAINT "_hotelsTolocations_B_fkey" FOREIGN KEY ("B") REFERENCES "locations"("id") ON DELETE CASCADE ON UPDATE CASCADE;

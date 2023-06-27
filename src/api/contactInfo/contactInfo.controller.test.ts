@@ -38,7 +38,10 @@ describe('contactInfo controller', () => {
         .post('/api/contactInfo')
         .send(newcontactInfo);
       expect(response.status).toBe(201);
+<<<<<<< HEAD
       expect(response.body).toHaveProperty('id');
+=======
+>>>>>>> 42d9cb7884aaeab8b78810e48fd064607841f2c0
       expect(response.body).toHaveProperty('name');
       expect(response.body).toHaveProperty('email');
       expect(response.body).toHaveProperty('phone');

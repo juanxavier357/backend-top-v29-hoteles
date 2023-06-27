@@ -1,4 +1,5 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import {
   getAllUsers,
   getUserById,
@@ -6,27 +7,27 @@ import {
   createUser,
   updateUser,
   deleteUser,
-} from './user.service'
-import { comparePassword } from "../../auth/utils/bcrypt";
+} from './user.service';
+import { comparePassword } from '../../auth/utils/bcrypt';
 
 export async function getAllUsersHandler(req: Request, res: Response) {
-  const users = await getAllUsers()
+  const users = await getAllUsers();
 
-  return res.json(users)
+  return res.json(users);
 }
 
 export async function getUserHandler(req: Request, res: Response) {
-  const { id } = req.params
+  const { id } = req.params;
 
-  const user = await getUserById(id)
+  const user = await getUserById(id);
 
   if (!user) {
     return res.status(404).json({
       message: 'user not found',
-    })
+    });
   }
 
-  return res.status(200).json(user)
+  return res.status(200).json(user);
 }
 
 export async function createUserHandler(req: Request, res: Response) {
@@ -40,31 +41,51 @@ export async function createUserHandler(req: Request, res: Response) {
   }
 }
 
-
 export async function updateUserHandler(req: Request, res: Response) {
   const { id } = req.params;
   const data = req.body;
   const user = await updateUser(id, data);
   if (!user) {
     return res.status(404).json({
-      message: "user not Found",
+      message: 'user not Found',
     });
   }
   return res.status(202).json(user);
 }
 
 export async function deleteUserHandler(req: Request, res: Response) {
-  const { id } = req.params
+  const { id } = req.params;
 
-  const user = await getUserById(id)
+  const user = await getUserById(id);
 
   if (!user) {
     return res.status(404).json({
       message: 'user not found',
-    })
+    });
   }
 
-  await deleteUser(id)
+  await deleteUser(id);
 
-  return res.json(user)
+  return res.json(user);
+}
+
+export async function loginHandler(req: Request, res: Response) {
+  const { email, password } = req.body;
+  try {
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    //compare password
+    const isMatch = await comparePassword(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Email or password not match' });
+    }
+    return res.json(user);
+  } catch (error) {
+    console.error(error);
+  }
 }
