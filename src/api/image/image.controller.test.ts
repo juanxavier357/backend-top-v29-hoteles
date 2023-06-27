@@ -34,6 +34,7 @@ describe('image controller', () => {
 
       const response = await request.post('/api/image').send(newimage);
       expect(response.status).toBe(201);
+      expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('url');
       expect(response.body).toHaveProperty('hotelId');
     });
