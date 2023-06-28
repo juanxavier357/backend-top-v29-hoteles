@@ -1,53 +1,62 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
-import { hotels } from './hotel.types'
+import { hotels } from './hotel.types';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // Query with prisma client
 
 export async function getAllHotel() {
-    const hotels = await prisma.hotels.findMany()
-    return hotels
+  const hotels = await prisma.hotels.findMany({
+    include: {
+      room: true,
+      image: true,
+      facility: true,
+      location: true,
+      contactInfo: true,
+      reservation: true,
+    },
+  });
+  return hotels;
 }
 
 export async function getHotelById(id: string) {
-    const hotel = await prisma.hotels.findUnique({
-        where: {
-            id,
-        },
-    })
+  const hotel = await prisma.hotels.findUnique({
+    where: {
+      id,
+    },
+  });
 
-    return hotel
+  return hotel;
 }
 
 export async function createHotel(data: hotels) {
-    const hotel = await prisma.hotels.create({
-        data,
-    })
+  const hotel = await prisma.hotels.create({
+    data,
+  });
 
-    return hotel
+  return hotel;
 }
 
 export async function updateHotel(id: string, data: hotels) {
-    const hotel = await prisma.hotels.update({
-        where: {
-            id,
-        },
-        data: {
-            ...data
-        }
-    })
+  const hotel = await prisma.hotels.update({
+    where: {
+      id,
+    },
+    data: {
+      ...data,
+    },
+  });
 
-    return hotel
+  return hotel;
 }
 
 export async function deleteHotel(id: string) {
-    const hotel = await prisma.hotels.delete({
-        where: {
-            id,
-        },
-    })
+  const hotel = await prisma.hotels.delete({
+    where: {
+      id,
+    },
+  });
 
-    return hotel
+  return hotel;
 }
