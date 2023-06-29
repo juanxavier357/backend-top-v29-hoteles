@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 import { hotels } from './hotel.types';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 // Query with prisma client
 
