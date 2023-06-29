@@ -9,12 +9,24 @@ const prisma = new PrismaClient();
 export async function getAllHotel() {
   const hotels = await prisma.hotels.findMany({
     include: {
-      room: true,
-      image: true,
-      facility: true,
-      location: true,
-      contactInfo: true,
-      reservation: true,
+      image: {
+        select: {
+          url: true,
+        },
+      },
+      location: {
+        select: {
+          city: true,
+          address: true,
+        },
+      },
+      contactInfo: {
+        select: {
+          name: true,
+          email: true,
+          phone: true,
+        },
+      },
     },
   });
   return hotels;
