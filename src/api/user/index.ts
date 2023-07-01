@@ -26,8 +26,5 @@ router.patch('/:id', updateUserHandler)
 // /api/users/:id --> DELETE
 router.delete('/:id', hasRole(["USER"]), deleteUserHandler)
 
-// api/users/login --> LOGIN
-router.post('login', loginHandler)
-
 export default router
 
