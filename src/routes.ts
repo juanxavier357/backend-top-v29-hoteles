@@ -7,6 +7,7 @@ import locationRouter from './api/location';
 import roomRouter from './api/room';
 import userRouter from "./api/user"
 import amenityRouter from "./api/amenity"
+import uploadRouter from "./api/upload"
 import authLocalRouter from "./auth/local"
 function routes(app: Application) {
 
@@ -19,6 +20,7 @@ function routes(app: Application) {
   app.use('/api/room', roomRouter);
   app.use('/api/user', userRouter);
   app.use('/api/amenities', amenityRouter);
+  app.use("/api/upload", uploadRouter);
   //Auth
   app.use("/auth/local", authLocalRouter)
 }
