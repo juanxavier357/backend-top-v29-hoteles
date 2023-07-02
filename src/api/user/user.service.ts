@@ -70,8 +70,16 @@ export async function createUser(input: users) {
   };
 
   const user = await prisma.users.create({
-    data,
-  });
+    data: {
+      ...input,
+      password: hashedPassword,
+      roles: {
+        create: {
+          roleId: "Hotel_User_2",
+        }
+      }
+    }
+  })
 
   return user;
 }
