@@ -1,15 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
-import { users } from './user.types'
+import { users } from './user.types';
 
-import { hashPassword } from "../../auth/utils/bcrypt"
+import { hashPassword, createHashToken } from '../../auth/utils/bcrypt';
 
-const prisma = new PrismaClient()
-
+const prisma = new PrismaClient();
 
 export async function getAllUsers() {
-  const users = await prisma.users.findMany()
-  return users
+  const users = await prisma.users.findMany();
+  return users;
 }
 
 export async function getUserById(id: string) {
@@ -17,9 +16,9 @@ export async function getUserById(id: string) {
     where: {
       id,
     },
-  })
+  });
 
-  return user
+  return user;
 }
 
 export async function getUserByEmail(email: string) {
@@ -42,22 +41,39 @@ export async function getUserByEmail(email: string) {
   return foundUser || null;
 }
 
+export async function getUserByToken(token: string) {
+  const user = await prisma.users.findFirst({
+    where: {
+      passwordResetToken: token,
+      // passwordResetExpires: {
+      //   lte: new Date(),
+      // }
+    }
+  })
+  return user
+}
+
 export async function createUser(input: users) {
   if (!input.password) {
-    throw new Error("Password is required")
+    throw new Error('Password is required');
   }
-  
-  const hashedPassword = await hashPassword(input.password)
+
+  const hashedPassword = await hashPassword(input.password);
+
+  const expiresIn = Date.now() + 3_600_000 * 24; // 24 horas
+
   const data = {
     ...input,
     password: hashedPassword,
-  }
+    passwordResetToken: createHashToken(input.email),
+    passwordResetExpires: new Date(expiresIn), // 24 horas
+  };
 
   const user = await prisma.users.create({
-    data
-  })
+    data,
+  });
 
-  return user
+  return user;
 }
 
 export async function updateUser(id: string, data: users) {
@@ -65,27 +81,38 @@ export async function updateUser(id: string, data: users) {
     where: {
       id,
     },
+    include: {
+      roles: {
+        select: {
+          role: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
     data: {
-      ...data
-    }
-  })
+      ...data,
+    },
+  });
 
-  return user
+  return user;
 }
 
 export async function deleteUser(id: string) {
   await prisma.userRoles.deleteMany({
     where: {
-      userId: id
-    }
+      userId: id,
+    },
   });
 
   const user = await prisma.users.delete({
     where: {
       id,
     },
-  })
+  });
 
-  return user
+  return user;
 }
-
