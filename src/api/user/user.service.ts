@@ -58,14 +58,10 @@ export async function createUser(input: users) {
     throw new Error('Password is required');
   }
 
-<<<<<<< HEAD
   const hashedPassword = await hashPassword(input.password);
 
   const expiresIn = Date.now() + 3_600_000 * 24; // 24 horas
 
-=======
-  const hashedPassword = await hashPassword(input.password)
->>>>>>> 1d5c8e90db9f2ec577dd1efc3c08e189e6ebf11b
   const data = {
     ...input,
     password: hashedPassword,
@@ -74,10 +70,6 @@ export async function createUser(input: users) {
   };
 
   const user = await prisma.users.create({
-<<<<<<< HEAD
-    data,
-  });
-=======
     data: {
       ...input,
       password: hashedPassword,
@@ -88,7 +80,6 @@ export async function createUser(input: users) {
       }
     }
   })
->>>>>>> 1d5c8e90db9f2ec577dd1efc3c08e189e6ebf11b
 
   return user;
 }
