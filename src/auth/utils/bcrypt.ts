@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import bcrypt from 'bcrypt';
 //import crypto from 'crypto';
 export async function hashPassword(password: string, factor?: number) {
@@ -19,3 +20,6 @@ export function hashPasswordSync(password: string, factor?: number) {
   return bcrypt.hashSync(password, salt)
 }
 
+export function createHashToken (data: string) {
+  return crypto.createHash('sha256').update(data).digest('hex')
+}
