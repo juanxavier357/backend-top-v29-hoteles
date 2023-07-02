@@ -2,6 +2,7 @@ import supertest from "supertest";
 import { getAllContactInfo, getContactInfoById } from "./contactInfo.service"
 import app from "../../config/app";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const request = supertest(app);
 
 describe('User Service', () => {
