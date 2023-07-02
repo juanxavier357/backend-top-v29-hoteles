@@ -3,6 +3,7 @@ export const hotelSeeder = [
     id: 'Colombia_Hotel_1',
     hotel: 'Charleston Santa Teresa',
     about: 'Un lujoso hotel boutique ubicado en el corazón del casco antiguo de Cartagena, con habitaciones elegantes, exquisita gastronomía y una piscina en la azotea con vistas panorámicas.',
+    
   },
   {
     id: 'Colombia_Hotel_2',
