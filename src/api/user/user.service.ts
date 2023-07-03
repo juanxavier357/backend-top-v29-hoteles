@@ -48,9 +48,9 @@ export async function getUserByToken(token: string) {
       // passwordResetExpires: {
       //   lte: new Date(),
       // }
-    }
-  })
-  return user
+    },
+  });
+  return user;
 }
 
 export async function createUser(input: users) {
@@ -58,37 +58,25 @@ export async function createUser(input: users) {
     throw new Error('Password is required');
   }
 
-<<<<<<< HEAD
   const hashedPassword = await hashPassword(input.password);
 
   const expiresIn = Date.now() + 3_600_000 * 24; // 24 horas
 
-=======
-  const hashedPassword = await hashPassword(input.password)
->>>>>>> 1d5c8e90db9f2ec577dd1efc3c08e189e6ebf11b
   const data = {
     ...input,
     password: hashedPassword,
+    roles: {
+      create: {
+        roleId: 'Hotel_User_2',
+      },
+    },
     passwordResetToken: createHashToken(input.email),
     passwordResetExpires: new Date(expiresIn), // 24 horas
   };
 
   const user = await prisma.users.create({
-<<<<<<< HEAD
     data,
   });
-=======
-    data: {
-      ...input,
-      password: hashedPassword,
-      roles: {
-        create: {
-          roleId: "Hotel_User_2",
-        }
-      }
-    }
-  })
->>>>>>> 1d5c8e90db9f2ec577dd1efc3c08e189e6ebf11b
 
   return user;
 }

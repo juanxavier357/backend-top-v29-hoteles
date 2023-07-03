@@ -32,7 +32,7 @@ export async function loginHandler(req: Request, res: Response) {
       roles: user.roles.map(({ role }) => ({
         id: role.id,
         name: role.name,
-      })),
+      }))
     };
 
     return res.json({ token, profile });
