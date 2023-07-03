@@ -1,4 +1,4 @@
-import { getAllLocation, getLocationById } from "./location.service"
+import { getAllImage, getImageById } from "./image.service"
 
 
 describe('location Service', () => {
@@ -8,7 +8,7 @@ describe('location Service', () => {
       const expected = Array;
 
       // Act
-      const result = await getAllLocation();
+      const result = await getAllImage();
 
       // Assert
       expect((result)).toBeInstanceOf(expected);
@@ -21,7 +21,7 @@ describe('location Service', () => {
       const expected = null;
 
       // Act
-      const result = await getLocationById(roleId);
+      const result = await getImageById(roleId);
 
       // Assert
       expect(result).toBeNull();

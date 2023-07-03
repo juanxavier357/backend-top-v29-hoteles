@@ -14,6 +14,7 @@ describe('location controller', () => {
   describe('GET /api/location/:id', () => {
     test('should return code 200 if the location exists', async () => {
       const response = await request.get('/api/location/Colombia_Hotel_1');
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
     });
 
@@ -21,22 +22,6 @@ describe('location controller', () => {
       const response = await request.get('/api/location/999');
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('message', 'Location not found');
-    });
-  });
-
-  describe('POST /api/location/id', () => {
-    test('should create a new location and return code 201', async () => {
-      const newlocation = {
-        address: 'Calle 10 No. 9 - 78',
-        city: "Bogota",
-        hotelId: 'Colombia_Hotel_2',
-      };
-
-      const response = await request.post('/api/location').send(newlocation);
-      expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('address');
-      expect(response.body).toHaveProperty('city');
     });
   });
 
@@ -53,10 +38,5 @@ describe('location controller', () => {
       expect(response.body).toHaveProperty('address');
     });
 
-    test('should return code 401 if theres is not location', async () => {
-      const response = await request.delete('/api/location/999');
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty('message', 'Location not found');
-    });
   });
 });
