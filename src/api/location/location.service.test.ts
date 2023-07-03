@@ -1,8 +1,5 @@
-import supertest from "supertest";
 import { getAllLocation, getLocationById } from "./location.service"
-import app from "../../config/app";
 
-const request = supertest(app);
 
 describe('location Service', () => {
   describe('getAllRol', () => {
@@ -30,5 +27,6 @@ describe('location Service', () => {
       expect(result).toBeNull();
       expect(result).toEqual(expected);
     });
+
   })
 });
