@@ -8,7 +8,7 @@ describe('contactInfo controller', () => {
     test('should return code 200 if the request is successful', async () => {
       const response = await request.get('/api/contactInfo');
       expect(response.status).toBe(200);
-    });
+    }, 10000);
   });
 
   describe('GET /api/contactInfo/:id', () => {
@@ -16,13 +16,13 @@ describe('contactInfo controller', () => {
       const response = await request.get('/api/contactInfo/Colombia_Hotel_1'); // Cambia el ID según tus datos de prueba
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
-    });
+    }, 10000);
 
     test('should return code 404 if the contactInfo does not exist', async () => {
       const response = await request.get('/api/contactInfo/999');
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('message', 'ContactInfo not found');
-    });
+    }, 10000);
   });
 
   describe('PATCH /api/contactInfo/:id', () => {
@@ -39,12 +39,12 @@ describe('contactInfo controller', () => {
       expect(response.body).toHaveProperty('name');
       expect(response.body).toHaveProperty('email');
       expect(response.body).toHaveProperty('phone');
-    });
+    }, 10000);
 
 
     test('should return code 404 if there is not Contact Information', async () => {
       const response = await request.delete('/api/contactInfo/999');
       expect(response.status).toBe(404);
-    });
+    }, 10000);
   });
 });

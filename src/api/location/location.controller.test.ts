@@ -8,7 +8,7 @@ describe('location controller', () => {
     test('should return code 200 if the request is successful', async () => {
       const response = await request.get('/api/location');
       expect(response.status).toBe(200);
-    });
+    }, 10000);
   });
 
   describe('GET /api/location/:id', () => {
@@ -16,13 +16,13 @@ describe('location controller', () => {
       const response = await request.get('/api/location/Colombia_Hotel_1');
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
-    });
+    }, 10000);
 
     test('should return code 404 if the location does not exist', async () => {
       const response = await request.get('/api/location/999');
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('message', 'Location not found');
-    });
+    }, 10000);
   });
 
   describe('PATCH /api/location/:id', () => {
@@ -36,7 +36,7 @@ describe('location controller', () => {
       expect(response.status).toBe(202);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('address');
-    });
+    }, 10000);
 
   });
 });

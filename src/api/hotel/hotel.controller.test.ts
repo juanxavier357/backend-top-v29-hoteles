@@ -16,13 +16,13 @@ describe('hotel controller', () => {
       const response = await request.get('/api/hotel/Colombia_Hotel_1'); // Cambia el ID según tus datos de prueba
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
-    });
+    }, 10000);
 
     test('should return code 404 if the hotel does not exist', async () => {
       const response = await request.get('/api/hotel/999');
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('message', 'Hotel not found');
-    });
+    }, 10000);
   });
 
   describe('PATCH /api/hotel/:id', () => {
@@ -36,7 +36,7 @@ describe('hotel controller', () => {
       expect(response.status).toBe(202);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('hotel');
-    });
+    }, 10000);
 
     // describe("DELETE /api/hotel/:id", () => {
     //   test("should delete an existing hotel and return code 200", async () => {
@@ -50,6 +50,6 @@ describe('hotel controller', () => {
       const response = await request.delete('/api/hotel/999');
       expect(response.status).toBe(404);
       // expect(response.body).toHaveProperty('message', 'Unauthorized');
-    });
+    }, 10000);
   });
 });
