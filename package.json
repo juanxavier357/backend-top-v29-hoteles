@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
+    "lint": "eslint src --ext .ts",
     "build": "tsc",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "prepare": "husky install"
   },
@@ -19,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@commitlint/config-conventional": "^17.6.5",
-    "@prisma/client": "^4.15.0",
+    "@prisma/client": "^4.16.2",
     "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.37.3",
@@ -45,8 +46,9 @@
     "@types/morgan": "^1.9.4",
     "@types/multer": "^1.4.7",
     "@types/supertest": "^2.0.12",
-    "@typescript-eslint/eslint-plugin": "^5.59.9",
-    "eslint": "^8.42.0",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.44.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.1.1",

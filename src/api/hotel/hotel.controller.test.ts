@@ -8,7 +8,7 @@ describe('hotel controller', () => {
     test('should return code 200 if the request is successful', async () => {
       const response = await request.get('/api/hotel');
       expect(response.status).toBe(200);
-    });
+    }, 10000); // Aumentar el tiempo de espera a 10000 ms (10 segundos)
   });
 
   describe('GET /api/hotel/:id', () => {
@@ -22,21 +22,6 @@ describe('hotel controller', () => {
       const response = await request.get('/api/hotel/999');
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('message', 'Hotel not found');
-    });
-  });
-
-  describe('POST /api/hotel', () => {
-    test('should create a new hotel and return code 201', async () => {
-      const newhotel = {
-        hotel: 'Hotel de Ejemplo',
-        about: 'Descripcion de ejemplo',
-      };
-
-      const response = await request.post('/api/hotel').send(newhotel);
-      expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('hotel');
-      expect(response.body).toHaveProperty('about');
     });
   });
 

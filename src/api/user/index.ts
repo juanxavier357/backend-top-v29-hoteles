@@ -8,7 +8,7 @@ import {
   deleteUserHandler,
   loginHandler,
 } from './user.controller'
-import { hasRole, isAuthenticated } from '../../auth/auth.controller'
+import { hasRole } from '../../auth/auth.controller'
 const router = Router()
 
 // /api/users --> GET
