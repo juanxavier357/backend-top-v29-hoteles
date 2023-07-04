@@ -31,9 +31,12 @@ jobs:
       # Paso 3: Instalación de dependencias
       - name: Install dependencies
         run: npm ci
-      # Paso 4: Ejecución de linter
+      # Paso 4: Configuración de la variable de entorno DATABASE_URL
+      - name: Set up environment variable
+        run: echo "DATABASE_URL= postgres://db_user:h0n0VLi5id9tvEqwYBVacsfyDnUkE4P4@dpg-chv5oo0rddl9p8irasn0-a.ohio-postgres.render.com/dbhotels" >> $GITHUB_ENV
+      # Paso 5: Ejecución de linter
       - name: Run linter
         run: npm run lint
-      # Paso 5: Ejecución de tests
+      # Paso 6: Ejecución de tests
       - name: Run tests
         run: npm run test
