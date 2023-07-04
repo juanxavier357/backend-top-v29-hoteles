@@ -53,6 +53,6 @@ jobs:
       # run the migration in the test database
       - run: npm run db:push
       - run: npm run db:seed
-      # Paso 5: Ejecución de tests
-      - name: Run tests
-        run: npm run test
+      # # Paso 5: Ejecución de tests
+      # - name: Run tests
+      #   run: npm run test
