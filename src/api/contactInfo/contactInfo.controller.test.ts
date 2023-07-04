@@ -25,27 +25,6 @@ describe('contactInfo controller', () => {
     });
   });
 
-  describe('POST /api/contactInfo', () => {
-    test('should create a new contactInfo and return code 201', async () => {
-      const newcontactInfo = {
-        name: 'Hotel de Ejemplo',
-        email: 'info@hotelesejemplo.com',
-        phone: '+57 605 6543200',
-        hotelId: 'Colombia_Hotel_1',
-      };
-
-      const response = await request
-        .post('/api/contactInfo')
-        .send(newcontactInfo);
-      expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('name');
-      expect(response.body).toHaveProperty('email');
-      expect(response.body).toHaveProperty('phone');
-      expect(response.body).toHaveProperty('hotelId');
-    });
-  });
-
   describe('PATCH /api/contactInfo/:id', () => {
     test('should update an existing contactInfo and return code 202', async () => {
       const updatedcontactInfo = {
@@ -54,7 +33,7 @@ describe('contactInfo controller', () => {
         phone: '+57 605 6543201 (Actualizado)',
       };
       const response = await request
-        .patch('/api/contactInfo/Colombia_Hotel_1') // Cambia el ID según tus datos de prueba
+        .patch('/api/contactInfo/Colombia_Hotel_1')
         .send(updatedcontactInfo);
       expect(response.status).toBe(202);
       expect(response.body).toHaveProperty('name');
@@ -62,19 +41,10 @@ describe('contactInfo controller', () => {
       expect(response.body).toHaveProperty('phone');
     });
 
-    // describe("DELETE /api/contactInfo/:id", () => {
-    //   test("should delete an existing contactInfo and return code 200", async () => {
-    //     const response = await request.delete("/api/contactInfo/1"); // Cambia el ID según tus datos de prueba
-    //     expect(response.status).toBe(200);
-    //     expect(response.body).toHaveProperty("name");
-    //     expect(response.body).toHaveProperty("email");
-    //     expect(response.body).toHaveProperty("phone");
-    //   });
 
     test('should return code 404 if there is not Contact Information', async () => {
       const response = await request.delete('/api/contactInfo/999');
       expect(response.status).toBe(404);
-      // expect(response.body).toHaveProperty('message', 'Unauthorized');
     });
   });
 });

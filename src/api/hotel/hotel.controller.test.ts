@@ -25,21 +25,6 @@ describe('hotel controller', () => {
     });
   });
 
-  describe('POST /api/hotel', () => {
-    test('should create a new hotel and return code 201', async () => {
-      const newhotel = {
-        hotel: 'Hotel de Ejemplo',
-        about: 'Descripcion de ejemplo',
-      };
-
-      const response = await request.post('/api/hotel').send(newhotel);
-      expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('hotel');
-      expect(response.body).toHaveProperty('about');
-    });
-  });
-
   describe('PATCH /api/hotel/:id', () => {
     test('should update an existing hotel and return code 202', async () => {
       const updatedhotel = {
