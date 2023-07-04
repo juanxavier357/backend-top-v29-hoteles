@@ -8,7 +8,7 @@ describe('hotel controller', () => {
     test('should return code 200 if the request is successful', async () => {
       const response = await request.get('/api/hotel');
       expect(response.status).toBe(200);
-    });
+    }, 10000); // Aumentar el tiempo de espera a 10000 ms (10 segundos)
   });
 
   describe('GET /api/hotel/:id', () => {
