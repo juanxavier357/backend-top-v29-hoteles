@@ -1,5 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
-import { getUserByEmail, getUserByToken, updateUser } from '../../api/user/user.service';
+import { Request, Response } from 'express';
+import {
+  getUserByEmail,
+  getUserByToken,
+  updateUser,
+} from '../../api/user/user.service';
 import { comparePassword } from '../utils/bcrypt';
 import { signToken } from '../auth.service';
 
@@ -52,11 +56,11 @@ export async function activateHandler(req: Request, res: Response) {
       });
     }
 
-    if(user.passwordResetExpires) {
-      if(Date.now() > user.passwordResetExpires.getTime()) {
+    if (user.passwordResetExpires) {
+      if (Date.now() > user.passwordResetExpires.getTime()) {
         return res.status(400).json({
           message: 'Token expired',
-        })
+        });
       }
     }
 
@@ -69,27 +73,25 @@ export async function activateHandler(req: Request, res: Response) {
 
     const updatedUser = await updateUser(user.id, data);
 
-        //jwt
-        const payload = {
-          id: updatedUser.id,
-          email: updatedUser.email,
-        };
-        const jwtToken = signToken(payload);
+    //jwt
+    const payload = {
+      id: updatedUser.id,
+      email: updatedUser.email,
+    };
+    const jwtToken = signToken(payload);
 
-        const profile = {
-          fullName: `${updatedUser.firstName} ${updatedUser.lastName}`,
-          avatar: updatedUser.avatar,
-          roles: updatedUser.roles.map(({ role }) => ({
-            id: role.id,
-            name: role.name,
-          })),
-        };
+    const profile = {
+      fullName: `${updatedUser.firstName} ${updatedUser.lastName}`,
+      avatar: updatedUser.avatar,
+      roles: updatedUser.roles.map(({ role }) => ({
+        id: role.id,
+        name: role.name,
+      })),
+    };
 
-
-    return res.json({token: jwtToken, profile});
+    return res.json({ token: jwtToken, profile });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
-
