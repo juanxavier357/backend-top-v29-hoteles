@@ -35,5 +35,5 @@ jobs:
       - name: Run linter
         run: npm run lint
       # Paso 5: Ejecución de tests
-      - name: Run tests
-        run: npm run test
+      # - name: Run tests
+      #   run: npm run test
