@@ -30,7 +30,7 @@ model users {
   createdAt            DateTime       @default(now())
   updatedAt            DateTime       @updatedAt
   roles                userRoles[]
-  payment              payments[]
+  payment              Payments[]
   reservations         reservations[]
 }
 
@@ -139,17 +139,14 @@ model reservations {
   hotelId       String
 }
 
-model payments {
-  id      String  @id @default(cuid())
-  // description String
-  // currency    String
-  // amount      Int
-  // code        String?
-  // discount    String?
-  // createdAt   DateTime @default(now())
-  // updatedAt   DateTime @updatedAt
-  // user        users    @relation(fields: [userId], references: [id])
-  // userId      String
-  users   users?  @relation(fields: [usersId], references: [id])
-  usersId String?
+model Payments {
+  id             String  @id @default(cuid())
+  cardBrand      String
+  cardNumber     String
+  cardExpMonth   String
+  cardExpYear    String
+  cardCvc        String
+  cardPostalCode String
+  users          users?  @relation(fields: [usersId], references: [id])
+  usersId        String?
 }
