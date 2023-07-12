@@ -9,6 +9,7 @@ import userRouter from "./api/user"
 import amenityRouter from "./api/amenity"
 import uploadRouter from "./api/upload"
 import authLocalRouter from "./auth/local"
+import paymentRouter from './api/payment';
 function routes(app: Application) {
 
   // Aquí puedes agregar las demás rutas si las necesitas
@@ -21,6 +22,7 @@ function routes(app: Application) {
   app.use('/api/user', userRouter);
   app.use('/api/amenities', amenityRouter);
   app.use("/api/upload", uploadRouter);
+  app.use("/api/payment", paymentRouter)
   //Auth
   app.use("/auth/local", authLocalRouter)
 }

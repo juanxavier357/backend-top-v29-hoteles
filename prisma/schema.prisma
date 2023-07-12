@@ -30,7 +30,7 @@ model users {
   createdAt            DateTime       @default(now())
   updatedAt            DateTime       @updatedAt
   roles                userRoles[]
-  payment              payments[]
+  payment              Payments[]
   reservations         reservations[]
 }
 
@@ -85,16 +85,16 @@ model images {
 }
 
 model rooms {
-  id            String      @id @default(cuid())
-  title         String
-  description   String
-  pastPrice     Float
-  actualPrice   Float
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  hotel         hotels      @relation(fields: [hotelId], references: [id])
-  hotelId       String
-  amenity       amenities[]
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  pastPrice   Float
+  actualPrice Float
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  hotel       hotels      @relation(fields: [hotelId], references: [id])
+  hotelId     String
+  amenity     amenities[]
 }
 
 model facilities {
@@ -139,15 +139,9 @@ model reservations {
   hotelId       String
 }
 
-model payments {
-  id          String   @id @default(cuid())
-  description String
-  currency    String
-  amount      Int
-  code        String?
-  discount    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        users    @relation(fields: [userId], references: [id])
-  userId      String
+model Payments {
+  id      String  @id @default(cuid())
+  amount  String
+  users   users?  @relation(fields: [usersId], references: [id])
+  usersId String?
 }
