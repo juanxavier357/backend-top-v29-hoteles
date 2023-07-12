@@ -140,13 +140,8 @@ model reservations {
 }
 
 model Payments {
-  id             String  @id @default(cuid())
-  cardBrand      String
-  cardNumber     String
-  cardExpMonth   String
-  cardExpYear    String
-  cardCvc        String
-  cardPostalCode String
-  users          users?  @relation(fields: [usersId], references: [id])
-  usersId        String?
+  id      String  @id @default(cuid())
+  amount  String
+  users   users?  @relation(fields: [usersId], references: [id])
+  usersId String?
 }

@@ -140,18 +140,12 @@ CREATE TABLE "reservations" (
 );
 
 -- CreateTable
-CREATE TABLE "payments" (
+CREATE TABLE "Payments" (
     "id" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "currency" TEXT NOT NULL,
-    "amount" INTEGER NOT NULL,
-    "code" TEXT,
-    "discount" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "userId" TEXT NOT NULL,
+    "amount" TEXT NOT NULL,
+    "usersId" TEXT,
 
-    CONSTRAINT "payments_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Payments_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -194,4 +188,4 @@ ALTER TABLE "reservations" ADD CONSTRAINT "reservations_userId_fkey" FOREIGN KEY
 ALTER TABLE "reservations" ADD CONSTRAINT "reservations_hotelId_fkey" FOREIGN KEY ("hotelId") REFERENCES "hotels"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "payments" ADD CONSTRAINT "payments_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Payments" ADD CONSTRAINT "Payments_usersId_fkey" FOREIGN KEY ("usersId") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
