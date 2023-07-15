@@ -92,6 +92,5 @@ export async function activateHandler(req: Request, res: Response) {
     return res.json({ token: jwtToken, profile });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Internal server error' });
   }
 }
